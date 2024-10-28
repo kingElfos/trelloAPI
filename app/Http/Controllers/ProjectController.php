@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    // Método para crear un nuevo proyecto
+
     public function store(Request $request)
     {
         $request->validate([
