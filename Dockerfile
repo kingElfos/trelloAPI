@@ -21,8 +21,11 @@ COPY . /var/www/html
 # Establece el directorio de trabajo
 WORKDIR /var/www/html
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install
+# Forzar el uso de un espejo de Composer
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com
 
+# Limpiar el caché de Composer y ejecutar la instalación
+RUN rm -rf vendor composer.lock && composer install
 
 # Expone el puerto 80
 EXPOSE 80
