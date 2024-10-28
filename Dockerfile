@@ -22,7 +22,7 @@ WORKDIR /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Instala las dependencias de Laravel
-RUN composer install
+RUN sudo composer install
 
 # Expone el puerto 80
 EXPOSE 80
