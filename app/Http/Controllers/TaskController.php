@@ -26,6 +26,14 @@ class TaskController extends Controller
         $tasks = Task::all();
         return response()->json($tasks);
     }
+    //metodo para obtener las tareas por proyecto
+
+    public function getTasksByProject($projectId)
+    {
+        $tasks = Task::where('project_id', $projectId)->get();
+
+        return response()->json($tasks);
+    }
 
     // Método para obtener una tarea específica
     public function show($id)
