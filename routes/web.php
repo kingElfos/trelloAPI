@@ -12,6 +12,7 @@ Route::get('/', function () {
 });
 Route::get('getTasksByProject/{projectId}', [TaskController::class, 'getTasksByProject']);
 
-Route::get('/csrf-token', function () {
-    return response()->json(['csrf_token' => csrf_token()]);
+Route::get('/csrf_token', function (Request $request) {
+    $token = $request->session()->token();
+    $token = csrf_token();
 });
