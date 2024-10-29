@@ -16,7 +16,7 @@ class Cors
         $headers = [
             'Access-Control-Allow-Origin'      => '*',
             'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
-            'Access-Control-Allow-Headers'     => 'Content-Type, X-Auth-Token, Origin, Authorization',
+            'Access-Control-Allow-Headers'     => 'Content-Type, X-Auth-Token, Origin, Authorization, X-CSRF-Token',
             'Access-Control-Allow-Credentials' => 'true', // Opcional: permite cookies/credenciales en CORS
         ];
 
