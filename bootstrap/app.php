@@ -12,9 +12,6 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->validateCsrfTokens(except: [
-            env('APP_URL') . '*',
-        ]);
         $middleware->append(Cors::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
