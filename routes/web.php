@@ -10,4 +10,4 @@ Route::apiResource('tasks', TaskController::class);
 Route::get('/', function () {
     return json_encode(["message" => "welcome to api trello made with laravel", "status" => "200"]);
 });
-Route::get('projects/{projectId}/tasks', [TaskController::class, 'getTasksByProject']);
+Route::get('getTasksByProject/{projectId}', [TaskController::class, 'getTasksByProject']);
