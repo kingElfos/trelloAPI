@@ -12,9 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->validateCsrfTokens(except: [
-            env('APP_URL') . '/researchjspost',
-        ]);
+        // $middleware->validateCsrfTokens(except: [
+        //     env('APP_URL') . '/researchjspost',
+        // ]);
         $middleware->append(Cors::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
