@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->validateCsrfTokens(except: [
+            '*', // <-- exclude validation csrf because that's a test app
+        ]);
         $middleware->append(Cors::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {

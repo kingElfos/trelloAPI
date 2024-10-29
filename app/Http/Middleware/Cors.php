@@ -17,7 +17,7 @@ class Cors
             'Access-Control-Allow-Origin'      => '*',
             'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
             'Access-Control-Allow-Headers'     => 'Content-Type, X-Auth-Token, Origin, Authorization, X-CSRF-TOKEN',
-            'Access-Control-Allow-Credentials' => 'true', // Opcional: permite cookies/credenciales en CORS
+            'Access-Control-Allow-Credentials' => 'true',
         ];
 
         // Si es una solicitud de preflight, responde directamente con los encabezados CORS
