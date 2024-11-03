@@ -1,0 +1,25 @@
+# railway.toml
+
+# Define el nombre del servicio (opcional)
+[[services]]
+name = "laravel-app"
+
+# Fase de construcción
+[services.env]
+RAILWAY_ENVIRONMENT = "production"
+
+[services.deploy]
+# Comandos que se ejecutan antes de iniciar el servicio
+build = """
+  composer install --optimize-autoloader --no-dev
+  npm install
+  npm run build
+"""
+
+# Comandos que se ejecutan después de la fase de construcción, cuando el servidor ya está listo
+start = """
+  php artisan migrate --force
+  php artisan config:cache
+  php artisan route:cache
+  php artisan view:cache
+"""
