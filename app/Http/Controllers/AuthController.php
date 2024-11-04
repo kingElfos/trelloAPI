@@ -38,27 +38,44 @@ class AuthController extends Controller
     // Método para iniciar sesión
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email'    => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'email'    => 'required|string|email',
+                'password' => 'required|string',
+            ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            $user = User::where('email', $request->email)->first();
+
+            if (! $user || ! Hash::check($request->password, $user->password)) {
+                return response()->json(['message' => 'Credenciales inválidas'], 401);
+            }
+
+            try {
+                $token = $user->createToken('auth_token')->plainTextToken;
+            } catch (\Exception $e) {
+                // Error al generar el token
+                return response()->json([
+                    'message' => 'Error al generar el token de autenticación',
+                    'error'   => $e->getMessage(),
+                ], 500);
+            }
+
+            return response()->json([
+                'message' => 'Inicio de sesión exitoso',
+                'token'   => $token,
+            ], 200);
+
+        } catch (\Exception $e) {
+            // Error general en el proceso de login
+            return response()->json([
+                'message' => 'Error al intentar iniciar sesión',
+                'error'   => $e->getMessage(),
+            ], 500);
         }
-
-        $user = User::where('email', $request->email)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Credenciales inválidas'], 401);
-        }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Inicio de sesión exitoso',
-            'token'   => $token,
-        ], 200);
     }
 
     // Método para cerrar sesión
